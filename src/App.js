@@ -1,24 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import './css/style.css'
+
+import { HashRouter , Route , Routes } from 'react-router-dom'
+import { Principal } from './component/index/principal';
+import { Load } from './component/load/load';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <HashRouter>
+       {/* para llamar a la ruta en la url va  localhost:3000/!#/ruta*/}
+      <Routes>
+        <Route path='/load' element={<Load/>}/>
+        <Route path='/' element={<Principal/>}/>
+      </Routes>
+    </HashRouter>
   );
 }
 
