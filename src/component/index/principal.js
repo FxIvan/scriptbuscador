@@ -1,28 +1,45 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 export const Principal = () =>{
 
     const [ code , setCode ] = useState([])
-    const [ codeSearch , setCodeSearch ]  = useState([])
     const [busqueda , setBusqueda ] = useState("")
+    const [ palabraClaves , setPalabrasClaves ] = useState([])
+    
 
-    /*********************************************BUSCADOR******************************************* */
+
+    /*********************************************HACIENDO PETICIONES******************************************* */
+
     const getProgram = async()=>{
-            await axios.get('http://localhost:3050/load')
-            .then((res)=>{
-                setCode(res.data)
-                setCodeSearch(res.data)
-            })
-            .catch(err=>{
-                console.log(err)
-            })
-        
+        await axios.get('http://localhost:3050/load')
+        .then((res)=>{
+            setCode(res.data)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    
     }
+
     useEffect(()=>{
         getProgram()
     },[])
+
+    /*********************************************SEPARACION DE RENGLONES******************************************* */
+
+
+        const resultado = code.map(result=>{
+            return result.codigo
+        })
+  
+    
+       const stringResultado = resultado.toString()
+    
+       const arrayFin = stringResultado.split('\n')
+
+    /*********************************************BUSCADOR******************************************* */
 
     const handleChange = (e) =>{
         setBusqueda(e.target.value)
@@ -31,43 +48,45 @@ export const Principal = () =>{
 
 
     const filtrado = (letra) =>{
-        const resultadoSearch = codeSearch.filter(elemento=>{
-            if(elemento.codigo.toString().toLowerCase().includes(letra.toLowerCase())){
+        const resultadoSearch = arrayFin.filter(elemento=>{
+            if(elemento.toString().toLowerCase().includes(letra.toLowerCase())){
                     return elemento
             }
         })
-        setCode(resultadoSearch)
+        /* TENGO QUE TRATAR DE METER ESTO DE UNA MANERA GLOBAL */
+        setPalabrasClaves(resultadoSearch)
     }
+
 
      /*********************************************BUSCADOR******************************************* */
 
-     const resultado = code.map(result=>{
-          return result.codigo
-     })
-
-     const stringResultado = resultado.toString()
-
-     const resultadoFinal = stringResultado.split('\n')
-
-
+     console.log(palabraClaves)
 
     return(
         <div className='col-6'>
             <Link to={'/load'}>Cargar Programa</Link>
 
             <input type="text" className="form-control inputBuscar" value={busqueda} placeholder="Búsqueda por Palabra Claves" onChange={handleChange}/>
-            <input type="text" className="form-control inputBuscar" value={busqueda} placeholder="Divir codigo por" onChange={handleChange}/>
-
-            {
-               <p>{code}</p> && resultadoFinal.map(elemento=>(
-                   <div key={elemento._id}>
-                       {/*<h2>Nombre del Programa: {elemento.nombre}</h2>*/}
-                       <div>
-                            <p>{elemento}</p>
-                        </div>
-
+        
+           
+            {                
+               <p>{palabraClaves.map(palabras=>(
+                   <div>
+                       <p>{palabras}</p>
                    </div>
-               ))
+               ))}</p>
+            }
+            <h3>Separacion de Programas</h3>
+            {
+            arrayFin.map(elemento=>(
+                        <div key={elemento._id}>
+                            {/*<h2>Nombre del Programa: {elemento.nombre}</h2>*/}
+                                <div>
+                                    <p>{elemento}</p>
+                                </div>
+             
+                            </div>
+                        ))
             }
         </div>
     )

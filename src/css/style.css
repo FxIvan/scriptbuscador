@@ -2,6 +2,6 @@ p{
     white-space: pre;
 }
 
-#puntop{
-    color: red;
+p{
+    margin: 0;
 }
