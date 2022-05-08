@@ -5,3 +5,59 @@ p{
 p{
     margin: 0;
 }
+/*****NAVBAR*****/
+.navbar-desktop{
+    background-color: black;
+    width: 100%;
+}
+.navbar-desktop-img img{
+    height: 110px;
+}
+.navbar-link-desktop Link{
+    width: 100%;
+    display: inline;
+}
+.container-link-desktop{
+    width: 100%;
+}
+.link-logo-desktop{
+    display: flex;
+    align-items: center;
+}
+.navbar-link-desktop a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+.navbar-link-desktop a:hover{
+    text-decoration: none;
+    color: rgb(62, 15, 190);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/*****FIN NAVBAR*****/
+
+/**********ESTILOS DE TARJETA DE PROGRAMAS*********/
+.programa-link a{
+    text-decoration: none;
+    margin: 1rem;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+}
+.programa-link a:hover{
+    text-decoration: none;
+    margin: 1rem;
+    color: #686868;
+    font-weight: bold;
+    font-size: 18px;
+}
+.input-desktop input{
+    margin: 2rem 0rem 3rem 0rem;
+    width: 50vh;
+
+}
+
+/**********ESTILOS DE TARJETA DE PROGRAMAS*********/
