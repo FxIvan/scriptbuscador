@@ -8,6 +8,7 @@ export const Principal = () =>{
     const [ codeSearch , setCodeSearch ]  = useState([])
     const [busqueda , setBusqueda ] = useState("")
 
+    /*********************************************BUSCADOR******************************************* */
     const getProgram = async()=>{
             await axios.get('http://localhost:3050/load')
             .then((res)=>{
@@ -19,7 +20,6 @@ export const Principal = () =>{
             })
         
     }
-
     useEffect(()=>{
         getProgram()
     },[])
@@ -39,19 +39,31 @@ export const Principal = () =>{
         setCode(resultadoSearch)
     }
 
+     /*********************************************BUSCADOR******************************************* */
+
+     const resultado = code.map(result=>{
+          return result.codigo
+     })
+
+     const stringResultado = resultado.toString()
+
+     const resultadoFinal = stringResultado.split('\n')
+
+
 
     return(
         <div className='col-6'>
             <Link to={'/load'}>Cargar Programa</Link>
 
-            <input type="text" className="form-control inputBuscar" value={busqueda} placeholder="Búsqueda por Nombre o Empresa" onChange={handleChange}/>
+            <input type="text" className="form-control inputBuscar" value={busqueda} placeholder="Búsqueda por Palabra Claves" onChange={handleChange}/>
+            <input type="text" className="form-control inputBuscar" value={busqueda} placeholder="Divir codigo por" onChange={handleChange}/>
 
             {
-               <p>{code}</p> && code.map(elemento=>(
+               <p>{code}</p> && resultadoFinal.map(elemento=>(
                    <div key={elemento._id}>
-                       <h2>Nombre del Programa: {elemento.nombre}</h2>
+                       {/*<h2>Nombre del Programa: {elemento.nombre}</h2>*/}
                        <div>
-                            <p>{elemento.codigo}</p>
+                            <p>{elemento}</p>
                         </div>
 
                    </div>
